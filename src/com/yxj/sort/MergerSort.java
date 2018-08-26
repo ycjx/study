@@ -16,7 +16,6 @@ public class MergerSort {
     }
 
     public static void megerSort(int[] array,int start,int end){
-//        System.out.println(start+"---"+end);
         if(end - start<1)
             return;
         int mid = (end+start)/2;
@@ -28,7 +27,6 @@ public class MergerSort {
         int[] copy = new int[array.length+1];
 
         while (i<=mid&&j<=end){
-//            System.out.println(i+"--"+j);
             try {
                 if(array[i]<=array[j]){
                     copy[t++] = array[i++];
@@ -52,9 +50,7 @@ public class MergerSort {
         }
 
         t=0;
-//        System.out.println(Arrays.toString(copy));
         while (start<=end){
-//            System.out.println(t);
             array[start++] = copy[t++];
         }
 
