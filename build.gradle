@@ -1,0 +1,66 @@
+buildscript {
+     ext {
+          springBootVersion = '1.5.18.RELEASE'
+     }
+     repositories {
+
+          maven {
+               url 'http://maven.aliyun.com/nexus/content/groups/public/'
+          }
+
+
+          mavenCentral()
+
+     }
+     dependencies {
+          classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+     }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+
+version = '0.0.1'
+
+sourceCompatibility = 1.8
+
+repositories {
+
+     maven {
+          url 'http://maven.aliyun.com/nexus/content/groups/public/'
+     }
+     mavenCentral()
+}
+
+
+dependencies {
+     compile('org.springframework.boot:spring-boot-starter')
+     compileOnly('org.projectlombok:lombok')
+     compile("com.alibaba:fastjson:1.2.47")
+     testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+
+tasks.withType(FindBugs) {
+     //toolVersion = '3.0.1'
+     //如果要忽略这个task，设置enabled = false，默认是true
+     //enabled = false
+     ignoreFailures = true
+     findbugsTest.enabled = false
+     effort = "default"
+     reportLevel = "medium"
+     //这里填写项目classes目录
+     classes = files("build/classes")
+//    classes = files("out/production/classes")
+     source = fileTree('src/main/java')
+     classpath = files()
+     reports {
+          xml.enabled = true
+          //html.enabled = false
+          //html.stylesheet resources.text.fromFile('findbugs-template.xsl')
+     }
+}
+
+

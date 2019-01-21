@@ -1,6 +1,7 @@
 package com.yxj.lambda;
 
 import java.util.function.Consumer;
+import java.util.stream.LongStream;
 
 public class Demo1 {
 
@@ -21,7 +22,8 @@ public class Demo1 {
 //        RunCode r = (String x) -> System.out.println(x);
 //        r.run("x");
 
-        conSumerExample(10,money -> System.out.println(money));
+//        conSumerExample(10,money -> System.out.println(money));
+        System.out.println(LongStream.rangeClosed(0L,5L).reduce(0L,Long::sum));
     }
 
 
