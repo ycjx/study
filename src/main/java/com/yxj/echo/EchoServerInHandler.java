@@ -32,12 +32,27 @@ public class EchoServerInHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         ByteBuf in = (ByteBuf) msg;
-        System.out.println("服务器接收：" + in.toString(CharsetUtil.UTF_8));
+        String str;
+        if (in.isReadable()) {
+            int readIndex = in.readerIndex();
+            int writeIndex = in.writerIndex();
+            byte[] data = new byte[writeIndex-readIndex];
+            in.readBytes(data,readIndex,writeIndex);
+            str = new String(data);
+            System.out.println("服务器接收：" + str);
+
+        }
         ByteBuf heapBuffer = Unpooled.buffer(1024);
         heapBuffer.writeBytes("yay".getBytes());
+        ByteBuf bodyBuffer = Unpooled.buffer(1024);
+        bodyBuffer.writeBytes("body".getBytes());
+
+
+        CompositeByteBuf compositeByteBuf = Unpooled.compositeBuffer();
+        //TODO 找个时间研究下为什么 increaseWriterIndex 为false时客户端就是不到，貌似还堵塞住了
+        compositeByteBuf.addComponents(true, bodyBuffer, heapBuffer);
         //TODO 为什么写入String类型 客户端接收不到
-        ctx.write(heapBuffer);
-        ctx.flush();
+        ctx.writeAndFlush(compositeByteBuf);
     }
 
 //    @Override

@@ -39,7 +39,7 @@ public class EchoServer {
         try {
             ServerBootstrap b = new ServerBootstrap();
             b.group(group, group2)
-                    .channel(NioServerSocketChannel.class) //指定所使用的channel
+                    .channel(NioServerSocketChannel.class) //指定所使用的channel Epoll 只支持在linux 比nio更快 ,完全非阻塞
                     .localAddress(new InetSocketAddress(port))
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
