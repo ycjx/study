@@ -1,13 +1,13 @@
-package com.yxj.echo;
+package com.yxj.netty;
 
+import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.CompositeByteBuf;
 import io.netty.buffer.Unpooled;
-import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelHandler;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
-import io.netty.util.CharsetUtil;
+import io.netty.channel.*;
+import io.netty.channel.socket.nio.NioSocketChannel;
+
+import java.net.InetSocketAddress;
 
 /**
  * @author:yuxj
@@ -17,10 +17,28 @@ import io.netty.util.CharsetUtil;
 @ChannelHandler.Sharable
 public class EchoServerInHandler extends ChannelInboundHandlerAdapter {
 
+    ChannelFuture connectFuture;
+
 //    @Override
 //    public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
 //        super.channelRegistered(ctx);
 //    }
+
+
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        Bootstrap bootstrap = new Bootstrap();
+        bootstrap.channel(NioSocketChannel.class)
+                .handler(new SimpleChannelInboundHandler<ByteBuf>() {
+                    @Override
+                    protected void channelRead0(ChannelHandlerContext ctx, ByteBuf msg) {
+                        System.out.println("received data");
+                    }
+                });
+        //TODO 尽可能重用EventLoop 不是很理解
+        bootstrap.group(ctx.channel().eventLoop());
+        connectFuture  = bootstrap.connect(new InetSocketAddress("www.baidu.com",80));
+    }
 
     /**
      * 处理接收到的消息

@@ -1,4 +1,4 @@
-package com.yxj.echo;
+package com.yxj.netty;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.CompositeByteBuf;
@@ -11,10 +11,10 @@ import io.netty.util.ByteProcessor;
 /**
  * @author:yuxj
  * @descriptio
- * @create:2019/1/27 上午12:10
+ * @create:2019/2/8 下午11:15
  */
 @ChannelHandler.Sharable
-public class EchoClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
+public class EchoClientHandler2 extends SimpleChannelInboundHandler<ByteBuf> {
 
 
     /**
@@ -35,7 +35,7 @@ public class EchoClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
 
         CompositeByteBuf compositeByteBuf = Unpooled.compositeBuffer();
         compositeByteBuf.addComponents(true,heapBuffer,bodyBuffer);
-         ctx.writeAndFlush(compositeByteBuf);
+        ctx.writeAndFlush(compositeByteBuf);
     }
 
 
@@ -65,6 +65,7 @@ public class EchoClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
             msg.readBytes(data,readIndex,writeIndex);
             str = new String(data);
             System.out.println("Cilent received: " + str);
+            ctx.fireChannelRead(msg);
 
 
         }

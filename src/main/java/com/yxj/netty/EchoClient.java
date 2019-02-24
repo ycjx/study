@@ -1,6 +1,8 @@
-package com.yxj.echo;
+package com.yxj.netty;
 
 import io.netty.bootstrap.Bootstrap;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.EventLoopGroup;
@@ -21,17 +23,23 @@ public class EchoClient {
 
     private final int port;
 
+    private final Bootstrap b;
+
+    public Bootstrap getB() {
+        return b;
+    }
+
 
     public EchoClient(String host, int port) {
         this.host = host;
         this.port = port;
+        this.b = new Bootstrap();
     }
 
 
     public void start() throws Exception {
         EventLoopGroup group = new NioEventLoopGroup();
         try {
-            Bootstrap b = new Bootstrap();
             b.group(group)
                     .channel(NioSocketChannel.class)
                     .remoteAddress(new InetSocketAddress(host, port))
@@ -42,7 +50,14 @@ public class EchoClient {
                         }
                     });
             ChannelFuture f = b.connect().sync();
-            f.channel().writeAndFlush("Hello Netty Server, I am a common client");
+            f.addListener(lis -> {
+                if (!lis.isSuccess()) {
+
+                }
+            });
+            ByteBuf heapBuffer = Unpooled.buffer(1024);
+            heapBuffer.writeBytes("Hello Netty Server, I am a common client\"".getBytes());
+            f.channel().writeAndFlush(heapBuffer);
             System.out.println("Hello Netty Server, I am a common client");
             f.channel().closeFuture().sync();
         } catch (Exception ex) {
@@ -59,7 +74,20 @@ public class EchoClient {
 
         String host = "127.0.0.1";
         int port = 8001;
-        new EchoClient(host, port).start();
+        EchoClient echoClient = new EchoClient(host, port);
+
+        echoClient.start();
+
+        Thread.sleep(2000);
+
+
+        ChannelFuture f2 = echoClient.getB().connect().sync();
+
+        ByteBuf heapBuffer = Unpooled.buffer(1024);
+        heapBuffer.writeBytes("这是第二个".getBytes());
+        System.out.println("这是第二个");
+        f2.channel().writeAndFlush(heapBuffer);
+        f2.channel().closeFuture().sync();
     }
 
 }

@@ -1,4 +1,4 @@
-package com.yxj.echo;
+package com.yxj.netty;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelOutboundHandlerAdapter;
@@ -14,9 +14,9 @@ public class EchoServerOutHandler extends ChannelOutboundHandlerAdapter {
 
     @Override
     public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
-
         System.out.println("即将出站的消息" + msg.toString());
-
+//        ReferenceCountUtil.release(msg);
+//        promise.setSuccess();
         super.write(ctx, msg, promise);
     }
 }

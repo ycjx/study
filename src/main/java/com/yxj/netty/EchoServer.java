@@ -1,4 +1,4 @@
-package com.yxj.echo;
+package com.yxj.netty;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;

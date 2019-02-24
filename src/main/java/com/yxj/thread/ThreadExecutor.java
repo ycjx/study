@@ -23,7 +23,6 @@ public class ThreadExecutor {
             FutureTask<Integer> task = new FutureTask<Integer>(new comTask(5,"线程"+i));
             taskList.add(task);
             excutor.submit(task);
-
          }
 
          Iterator<FutureTask<Integer>> iterator= taskList.iterator();
