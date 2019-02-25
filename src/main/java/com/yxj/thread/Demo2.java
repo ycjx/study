@@ -28,34 +28,34 @@ public class Demo2 {
 //        System.out.println(t1.isInterrupted());
 //        t1.interrupt();
 
-        Station s = new Station();
-
-        Field ss = null;
-
-        try {
-            ss = s.getClass().getDeclaredField("tricketsSoldss");
-        } catch (Exception var3) {
-
-        }
-        Field f = null;
-        try {
-            f = sun.misc.Unsafe.class.getDeclaredField("theUnsafe");
-        } catch (Exception var3) {
-
-        }
-
-        f.setAccessible(true);
-
-        Unsafe unsafe = null;
-        try {
-            unsafe = (sun.misc.Unsafe)f.get((Object)null);
-        } catch (IllegalAccessException var2) {
-
-        }
-
-
-
-        System.out.println(unsafe.objectFieldOffset(ss));
+//        Station s = new Station();
+//
+//        Field ss = null;
+//
+//        try {
+//            ss = s.getClass().getDeclaredField("tricketsSoldss");
+//        } catch (Exception var3) {
+//
+//        }
+//        Field f = null;
+//        try {
+//            f = sun.misc.Unsafe.class.getDeclaredField("theUnsafe");
+//        } catch (Exception var3) {
+//
+//        }
+//
+//        f.setAccessible(true);
+//
+//        Unsafe unsafe = null;
+//        try {
+//            unsafe = (sun.misc.Unsafe)f.get((Object)null);
+//        } catch (IllegalAccessException var2) {
+//
+//        }
+//
+//
+//
+//        System.out.println(unsafe.objectFieldOffset(ss));
 
     }
 }
