@@ -7,6 +7,7 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.LineBasedFrameDecoder;
 
 import java.net.InetSocketAddress;
 
@@ -26,7 +27,7 @@ public class EchoServer {
     public static void main(String[] args) throws Exception {
 
 
-        int port = 8001;
+        int port = 8002;
         new EchoServer(port).start();
 
     }
@@ -44,7 +45,9 @@ public class EchoServer {
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) {
-                            ch.pipeline().addLast(serverOutHandler)  //TODO 为什么出站的handle要在入站handler前面
+                            ch.pipeline()
+                                    .addLast(new LineBasedFrameDecoder(1000))
+                                    .addLast(serverOutHandler)  //TODO 为什么出站的handle要在入站handler前面
                                     .addLast(serverInHandler);
                         }
                     });

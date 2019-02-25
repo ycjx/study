@@ -27,17 +27,17 @@ public class EchoServerInHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        Bootstrap bootstrap = new Bootstrap();
-        bootstrap.channel(NioSocketChannel.class)
-                .handler(new SimpleChannelInboundHandler<ByteBuf>() {
-                    @Override
-                    protected void channelRead0(ChannelHandlerContext ctx, ByteBuf msg) {
-                        System.out.println("received data");
-                    }
-                });
+//        Bootstrap bootstrap = new Bootstrap();
+//        bootstrap.channel(NioSocketChannel.class)
+//                .handler(new SimpleChannelInboundHandler<ByteBuf>() {
+//                    @Override
+//                    protected void channelRead0(ChannelHandlerContext ctx, ByteBuf msg) {
+//                        System.out.println("received data");
+//                    }
+//                });
         //TODO 尽可能重用EventLoop 不是很理解
-        bootstrap.group(ctx.channel().eventLoop());
-        connectFuture  = bootstrap.connect(new InetSocketAddress("www.baidu.com",80));
+//        bootstrap.group(ctx.channel().eventLoop());
+//        connectFuture  = bootstrap.connect(new InetSocketAddress("www.baidu.com",80));
     }
 
     /**
@@ -60,6 +60,7 @@ public class EchoServerInHandler extends ChannelInboundHandlerAdapter {
             System.out.println("服务器接收：" + str);
 
         }
+
         ByteBuf heapBuffer = Unpooled.buffer(1024);
         heapBuffer.writeBytes("yay".getBytes());
         ByteBuf bodyBuffer = Unpooled.buffer(1024);

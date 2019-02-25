@@ -3,12 +3,14 @@ package com.yxj.netty;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.LineBasedFrameDecoder;
 
 import java.net.InetSocketAddress;
 
@@ -46,19 +48,29 @@ public class EchoClient {
                     .handler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) {
-                            ch.pipeline().addLast(new EchoClientHandler());
+                            ch.pipeline().addLast(new LineBasedFrameDecoder(1000));
                         }
                     });
             ChannelFuture f = b.connect().sync();
             f.addListener(lis -> {
-                if (!lis.isSuccess()) {
-
+                if (lis.isSuccess()) {
+                    Channel channel = ((ChannelFuture) lis).channel();
+                    ByteBuf heapBuffer2 = Unpooled.buffer(1024);
+                    heapBuffer2.writeBytes("qqqqqqq\n cccccccccccc".getBytes());
+                    f.channel().writeAndFlush(heapBuffer2);
                 }
             });
             ByteBuf heapBuffer = Unpooled.buffer(1024);
-            heapBuffer.writeBytes("Hello Netty Server, I am a common client\"".getBytes());
+            heapBuffer.writeBytes("Hello Netty Server, I am a\n common cli\nent".getBytes());
             f.channel().writeAndFlush(heapBuffer);
-            System.out.println("Hello Netty Server, I am a common client");
+//            Thread.sleep(1000);
+
+            new Thread(() -> {
+                ByteBuf heapBuffer2 = Unpooled.buffer(1024);
+                heapBuffer2.writeBytes("12313131313\n common client".getBytes());
+                f.channel().writeAndFlush(heapBuffer2);
+            }).start();
+
             f.channel().closeFuture().sync();
         } catch (Exception ex) {
 
@@ -73,7 +85,7 @@ public class EchoClient {
         }
 
         String host = "127.0.0.1";
-        int port = 8001;
+        int port = 8002;
         EchoClient echoClient = new EchoClient(host, port);
 
         echoClient.start();
