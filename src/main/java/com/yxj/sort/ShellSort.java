@@ -9,7 +9,7 @@ import java.util.Arrays;
  */
 public class ShellSort {
 
-    public static  int[] array = new int[]{23,34,45,12,34,32,13,85,32,4,1,54,24,74,25,86,65,38};
+    public static int[] array = new int[]{23, 34, 45, 12, 34, 32, 13, 85, 32, 4, 1, 54, 24, 74, 25, 86, 65, 38};
 
     public static void main(String[] args) {
 
@@ -19,23 +19,23 @@ public class ShellSort {
 
     }
 
-    public static int[] sort(int[] array){
+    public static int[] sort(int[] array) {
         int lenght = array.length;
-        int d = lenght/2;
-        while (d!=0){
-            for(int i=d;i<lenght;i++){
+        int d = lenght / 2;
+        while (d != 0) {
+            for (int i = d; i < lenght; i++) {
                 int temp = array[i];
-                int j = i-d;
-                while(j>=0&&temp<array[j]){
-                    array[j+d] = array[j];
-                    j = j-d;
+                int j = i - d;
+                while (j >= 0 && temp < array[j]) {
+                    array[j + d] = array[j];
+                    j = j - d;
                 }
-                array[j+d] = temp;
+                array[j + d] = temp;
 
             }
-            d = d/2;
+            d = d / 2;
 
         }
-        return  array;
+        return array;
     }
 }

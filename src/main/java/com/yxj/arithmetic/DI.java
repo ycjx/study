@@ -1,5 +1,9 @@
 package com.yxj.arithmetic;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.nio.channels.FileChannel;
+
 /**
  * @author:yuxj
  * @descriptio
@@ -8,7 +12,9 @@ package com.yxj.arithmetic;
 public class DI {
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+        FileInputStream fileInputStream = new FileInputStream(new File("asda"));
+        FileChannel c = fileInputStream.getChannel();
 
     }
 
