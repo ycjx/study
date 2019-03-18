@@ -1,48 +1,57 @@
 package com.yxj.thread;
 
 
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Demo1 {
 
     public static void main(String[] args) throws Exception {
         Thread.currentThread().setName("线程A");
 
-        final String a = "a";
+        ReentrantLock lock = new ReentrantLock();
+        Condition condition = lock.newCondition();
+        Thread thread = new Thread(() -> {
+            System.out.println(1);
+            lock.lock();
+            System.out.println("第一个任务");
+            try {
+                Thread.sleep(1000000000);
+            } catch (InterruptedException ex) {
 
-        for(int i=0;i<20;i++){
-            final Station sta = new Station();
-            Thread thread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-
-//                    Thread.sleep(s);
-                    sta.sellTricket(a);
-                    System.out.println(Thread.currentThread().getName());
+            } finally {
+                lock.unlock();
+            }
+        });
+        thread.start();
 
 
-                }
-            });
-            thread.setName("线程"+i);
-            thread.start();
-        }
-        Thread.sleep(1000);
-//        MyThread1 th = new MyThread1(sta);
-//        th.setName("线程Mythread");
-//        th.start();
-//        try {
-//            Thread.sleep(2000);
-//        }catch (InterruptedException e){
-//            e.printStackTrace();
-//        }
-//        MyThread1 t2 = new MyThread1(sta);
-//        t2.start();
-//        try {
-//            Thread.sleep(2000);
-//        }catch (InterruptedException e){
-//            e.printStackTrace();
-//        }
-//        System.out.println(th.getState());
-//        System.out.println(t2.isAlive());
+        Thread thread2 = new Thread(() -> {
+            lock.lock();
+            System.out.println("第二个任务");
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException ex) {
+
+            } finally {
+                lock.unlock();
+            }
+        });
+        thread2.start();
+        Thread.sleep(5000);
+//        Thread thread3 = new Thread(() -> {
+//            lock.lock();
+//            System.out.println("第三个任务");
+//            try {
+//                Thread.sleep(5000);
+//            } catch (InterruptedException ex) {
+//
+//            } finally {
+//                lock.unlock();
+//            }
+//        });
+//        thread3.start();
+
 
     }
 }

@@ -74,11 +74,7 @@ public class ForJoinPollTask {
                 for(int i= start;i<end;i++){
                     sum += arry[i];
                 }
-                try {
-                    Thread.sleep(1000);
-                }catch (InterruptedException ex){
 
-                }
                 return sum;
             }else {//当end与start之间的差大于threshold，即要累加的数超过20个时候，将大任务分解成小任务
                 int middle = (start+ end)/2;
