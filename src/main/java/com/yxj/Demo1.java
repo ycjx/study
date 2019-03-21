@@ -9,8 +9,16 @@ public class Demo1 {
 
 
     public static void main(String[] args) {
-        String s = new String("1");
-        String a = new String("1")+new String("1");
+
+        int i =1;
+        if(i>0){
+            System.out.println(1213);
+        }else if(i==1){
+            System.out.println(98798);
+        }
+
+
+
     }
 
 
