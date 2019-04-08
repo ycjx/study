@@ -5,14 +5,12 @@ package com.yxj;
 public class Test {
 
     public static void main(String[] args) {
-//        Com();
 
-        String a = new String("a");
-        a.intern();
+        Integer s = new Integer(33333);
+        int s3 = 33333;
+        Integer s2 = new Integer(33333);
 
-        String b = "a";
-        a.intern();
-
+        System.out.println(s==s3);
 //        System.out.println(a.equals());
 
     }

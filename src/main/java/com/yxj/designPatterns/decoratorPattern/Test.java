@@ -1,8 +1,5 @@
 package com.yxj.designPatterns.decoratorPattern;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.LineNumberInputStream;
 
 /**
  * @author:yuxj
