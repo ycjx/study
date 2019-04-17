@@ -18,27 +18,25 @@ public class GenerateParentheses {
 
     public List<String> generateParenthesis(int n) {
         List<String> s = new ArrayList<>();
-        StringBuilder a = new StringBuilder();
-        a.append("(");
-        result(a, 1, 1, 0, n, s);
+        result("(",1,1,0,n,s);
         return s;
     }
 
 
-    public void result(StringBuilder s, int num, int leftNum, int rightNum, int n, List<String> list) {
+    public void result(String s, int num, int leftNum, int rightNum, int n, List<String> list) {
         if (rightNum > leftNum) {
             return;
         }
         if (leftNum > n) {
             return;
         }
-        if (2 * n == num) {
-            list.add(s.toString());
+        if(2*n == num){
+            list.add(s);
             return;
         }
-        StringBuilder left = s.append("(");
+        String left = s + "(";
         result(left, ++num, ++leftNum, rightNum, n, list);
-        StringBuilder right = s.append(")");
+        String right = s + ")";
         result(right, num, --leftNum, ++rightNum, n, list);
     }
 
