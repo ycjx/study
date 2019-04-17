@@ -42,6 +42,7 @@ dependencies {
      testCompile('org.springframework.boot:spring-boot-starter-test')
      // https://mvnrepository.com/artifact/io.netty/netty-all
      compile group: 'io.netty', name: 'netty-all', version: '4.1.30.Final'
+
 }
 
 
