@@ -36,7 +36,10 @@ public class EchoClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
         CompositeByteBuf compositeByteBuf = Unpooled.compositeBuffer();
         compositeByteBuf.addComponents(true,heapBuffer,bodyBuffer);
          ctx.writeAndFlush(compositeByteBuf);
+         super.channelActive(ctx);
     }
+
+
 
 
     /**

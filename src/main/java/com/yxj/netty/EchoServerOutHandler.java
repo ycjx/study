@@ -5,6 +5,8 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelOutboundHandlerAdapter;
 import io.netty.channel.ChannelPromise;
 
+import java.net.SocketAddress;
+
 /**
  * @author:yuxj
  * @descriptio
@@ -13,6 +15,11 @@ import io.netty.channel.ChannelPromise;
 @ChannelHandler.Sharable
 public class EchoServerOutHandler extends ChannelOutboundHandlerAdapter {
 
+    @Override
+    public void bind(ChannelHandlerContext ctx, SocketAddress localAddress, ChannelPromise promise) throws Exception {
+        System.out.println(1);
+        super.bind(ctx, localAddress, promise);
+    }
 
     @Override
     public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
