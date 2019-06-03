@@ -2,7 +2,6 @@ package com.yxj.classloader;
 
 
 
-import org.springframework.boot.SpringBootBanner;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,6 +25,7 @@ public class ClassLoaderTest {
 
     public static void main(String[] args) throws Exception {
         ClassLoaderTest classLoaderTest = new ClassLoaderTest();
+        System.out.println(classLoaderTest.getClass().getInterfaces());
         Class<? extends ClassLoaderTest> aClass = classLoaderTest.getClass();
         List<Class> extensions = new ArrayList<>();
         System.out.println(aClass.getClassLoader().getResource(""));
