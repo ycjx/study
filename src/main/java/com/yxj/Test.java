@@ -1,6 +1,7 @@
 package com.yxj;
 
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,12 +9,9 @@ import java.util.List;
 public class Test {
 
     public static void main(String[] args) {
-        HashMap<Object, List> objectObjectHashMap = new HashMap<>();
-        ArrayList<Object> objects = new ArrayList<>();
-        objects.add("asd");
-        objectObjectHashMap.put("aa",objects);
-        objects = new ArrayList<>();
-        System.out.println(objectObjectHashMap.get("aa").size());
+        BigDecimal a = new BigDecimal(46800);
+        BigDecimal b = new BigDecimal(70200);
+        System.out.println(a.divide(b).setScale(2).doubleValue());
     }
 
 

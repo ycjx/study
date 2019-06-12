@@ -1,4 +1,4 @@
-package com.yxj.thread;
+package com.yxj.concurrentUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.concurrent.Exchanger;
  *
  * @create:2019-03-18 22:12
  */
-public class ExchangeExample {
+public class ExchangeTest {
 
 
 
@@ -101,10 +101,8 @@ public class ExchangeExample {
 
         producerThread.start();
         consumerThread.setName("消费者一号");
-//        consumerThread2.setName("消费者二号");
         Thread.sleep(5000L);
         consumerThread.start();
-//        consumerThread2.start();
     }
 
 

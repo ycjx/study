@@ -1,5 +1,9 @@
 package com.yxj;
 
+
+import org.springframework.stereotype.Service;
+
+@Service
 public class Father {
 
     synchronized public void run2(){

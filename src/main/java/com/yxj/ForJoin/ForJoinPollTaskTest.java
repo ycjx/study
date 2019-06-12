@@ -10,7 +10,7 @@ import java.util.concurrent.RecursiveTask;
  * @descriptio
  * @create:2019-03-06 14:48
  */
-public class ForJoinPollTask {
+public class ForJoinPollTaskTest {
 
     public static void main(String[] args) throws Exception {
         int[] arr = new int[10000];
