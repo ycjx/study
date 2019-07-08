@@ -25,8 +25,8 @@ public class MyTask extends ForkJoinTask<Integer> {
 
     @Override
     protected boolean exec() {
-        System.out.println("不知道干什么就打一行子吧");
+        System.out.println("不知道干什么就打一行字吧");
         setRawResult(10);
-        return false;
+        return true;
     }
 }

@@ -4,7 +4,7 @@ import java.lang.ref.WeakReference;
 
 /**
  * @author:yuxj
- * @descriptio
+ * @descriptio   弱引用，只要gc必回收
  * @create:2019-05-11 11:06
  */
 public class WeakReferenceTest {

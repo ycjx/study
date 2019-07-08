@@ -14,10 +14,6 @@ public class ThreadExecutor {
 
 
         ExecutorService excutor = Executors.newFixedThreadPool(10);
-        Executors.newCachedThreadPool();
-        ExecutorService s = Executors.newScheduledThreadPool(10);
-
-
         for (int i = 0; i < 10; i++) {
 
             FutureTask<Integer> task = new FutureTask<Integer>(new comTask(5,"线程"+i));
@@ -29,7 +25,7 @@ public class ThreadExecutor {
         while(iterator.hasNext()){
             try {
                 FutureTask<Integer> f = iterator.next();
-                f.get();
+                System.out.println(f.get());
                 excutor.shutdown();
                 System.out.println("线程"+ f.get());
             } catch (InterruptedException e) {

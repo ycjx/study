@@ -9,7 +9,7 @@ public class Demo3 {
                     new ArrayBlockingQueue<Runnable>(5));
 
             for(int i=0;i<15;i++){
-                    com.yxj.ForJoin.MyTask myTask = new com.yxj.ForJoin.MyTask(i);
+                    MyTask myTask = new MyTask(i);
                     executor.execute(myTask);
                     System.out.println("线程池中线程数目："+executor.getPoolSize()+"，队列中等待执行的任务数目："+
                                         executor.getQueue().size()+"，已执行玩别的任务数目："+executor.getCompletedTaskCount());

@@ -5,7 +5,10 @@ import java.lang.ref.ReferenceQueue;
 
 /**
  * @author:yuxj
- * @descriptio
+ * @descriptio 虚引用必须和引用队列(ReferenceQueue)联合使用。
+ *             当垃圾回收器准备回收一个对象时，如果发现它还有虚引用，
+ *             就会在回收对象的内存之前，把这个虚引用加入到与之关联的引用队列中。
+ *
  * @create:2019-05-11 16:34
  */
 public class PhantomReferenceTest {
@@ -38,10 +41,13 @@ public class PhantomReferenceTest {
         object = null;
         PhantomReferenceTest.printlnMemory("4.执行object = null;强引用断开后");
 
+//        byte[] object2 = new byte[234 * PhantomReferenceTest.M];
+
+
         System.gc();
         PhantomReferenceTest.printlnMemory("5.GC后");
         System.out.println("phantomReference : " + phantomReference);
-        System.out.println("phantomReference.get() : " + phantomReference);
+        System.out.println("phantomReference.get() : " + phantomReference.get());
         System.out.println("referenceQueue.poll() : " + referenceQueue.poll());
 
         //断开虚引用

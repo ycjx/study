@@ -9,9 +9,8 @@ import java.util.List;
 public class Test {
 
     public static void main(String[] args) {
-        BigDecimal a = new BigDecimal(46800);
-        BigDecimal b = new BigDecimal(70200);
-        System.out.println(a.divide(b).setScale(2).doubleValue());
+        int[] a = new int[4];
+        System.out.println(a.length);
     }
 
 

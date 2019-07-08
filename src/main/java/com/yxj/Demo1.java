@@ -87,10 +87,10 @@ public class Demo1 {
 
     public static void main(String[] args) throws Exception {
         try {
-            for(int i=700869;i<701000;i++){
+            for(int i=701001;i<702000;i++){
                 System.out.println(i);
                 try {
-                    downLoadFromUrl("http://2222box.com/video/play/"+i,
+                    downLoadFromUrl("http://3333box.com/video/play/"+i,
                             i+".mp4", "/Users/ycjx/xxx");
                 }catch (Exception ex){
                     System.out.println(i+"下载失败");

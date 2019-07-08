@@ -4,7 +4,7 @@ import java.lang.ref.SoftReference;
 
 /**
  * @author:yuxj
- * @descriptio
+ * @descriptio   软引用  内存不够自动gc
  * @create:2019-05-11 15:58
  */
 public class SoftReferenceTest {
@@ -22,13 +22,14 @@ public class SoftReferenceTest {
         SoftReferenceTest.printlnMemory("1.原可用内存和总内存");
 
         //建立软引用
-        SoftReference<Object> softRerference = new SoftReference<Object>(new byte[10 * SoftReferenceTest.M]);
+        byte[] a = new byte[10 * SoftReferenceTest.M];
+        SoftReference<Object> softRerference = new SoftReference<Object>(a);
         SoftReferenceTest.printlnMemory("2.实例化10M的数组,并建立软引用");
         System.out.println("softRerference.get() : " + softRerference.get());
 
         System.gc();
         SoftReferenceTest.printlnMemory("3.内存可用容量充足，GC后");
-        System.out.println("softRerference.get() : " + softRerference.get());
+//        System.out.println("softRerference.get() : " + softRerference.get());
 
         //实例化一个4M的数组,使内存不够用,并建立软引用
         //free=10M=4M+10M-4M,证明内存可用量不足时，GC后byte[10*m]被回收
