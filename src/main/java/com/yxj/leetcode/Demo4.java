@@ -1,7 +1,6 @@
-package com.yxj.arithmetic;
+package com.yxj.leetcode;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Demo4 {
 

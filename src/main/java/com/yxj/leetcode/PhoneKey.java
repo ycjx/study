@@ -1,4 +1,4 @@
-package com.yxj.arithmetic;
+package com.yxj.leetcode;
 
 import java.util.*;
 
