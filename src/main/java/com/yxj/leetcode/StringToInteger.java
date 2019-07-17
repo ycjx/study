@@ -6,4 +6,9 @@ package com.yxj.leetcode;
  * @create:2019-03-29 17:02
  */
 public class StringToInteger {
+
+    public int myAtoi(String str) {
+        return 0;
+
+    }
 }
