@@ -8,6 +8,8 @@ package com.yxj.leetcode;
 public class StringToInteger {
 
     public int myAtoi(String str) {
+
+        boolean isPositive = true;
         return 0;
 
     }
