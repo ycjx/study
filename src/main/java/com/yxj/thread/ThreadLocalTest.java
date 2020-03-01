@@ -7,13 +7,16 @@ package com.yxj.thread;
  */
 public class ThreadLocalTest {
 
+    private static ThreadLocal threadLocal = new ThreadLocal();
+
     public static void main(String[] args) {
-        ThreadLocal threadLocal = new ThreadLocal();
+
         threadLocal.set("main");
         System.out.println(threadLocal.get());
         Thread a = new Thread(new Runnable() {
             @Override
             public void run() {
+                threadLocal.set("123");
                 System.out.println(threadLocal.get());
             }
         });

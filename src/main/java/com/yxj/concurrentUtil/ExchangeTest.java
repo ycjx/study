@@ -6,24 +6,19 @@ import java.util.concurrent.Exchanger;
 
 /**
  * @author:yuxj
- * @descriptio  Exchanger
- *
- *
- *
- *
+ * @descriptio Exchanger
  * @create:2019-03-18 22:12
  */
 public class ExchangeTest {
 
 
-
-    static class Producer implements Runnable{
+    static class Producer implements Runnable {
 
         private List<String> buffer;
 
         private Exchanger<List<String>> exchanger;
 
-        Producer(List<String> buffer,Exchanger<List<String>> exchanger){
+        Producer(List<String> buffer, Exchanger<List<String>> exchanger) {
             this.buffer = buffer;
             this.exchanger = exchanger;
         }
@@ -31,10 +26,10 @@ public class ExchangeTest {
         @Override
         public void run() {
 
-            for(int i=1;i<5;i++){
-                System.out.println("生产者第"+i+"次提供");
-                for (int j = 1;j<3;j++){
-                    System.out.println("生产者装入"+i+"————"+j);
+            for (int i = 1; i < 5; i++) {
+                System.out.println("生产者第" + i + "次提供");
+                for (int j = 1; j < 3; j++) {
+                    System.out.println("生产者装入" + i + "————" + j);
                     buffer.add("buffer：" + i + "--" + j);
                 }
                 System.out.println("生产者装满，等待与消费者交换...");
@@ -43,7 +38,8 @@ public class ExchangeTest {
 
                     //生产者将buff填充满数据，与exchanger中的buffer交换
                     //在消费者获取数据前，生产者线程将被挂起
-                    exchanger.exchange(buffer);
+                    buffer = exchanger.exchange(buffer);
+                    buffer.clear();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -75,13 +71,13 @@ public class ExchangeTest {
                     e.printStackTrace();
                 }
 
-                System.out.println(name+"第" + i + "次提取");
-                if(buffer.size() != 2){
-                    System.out.println(name+" 没有获取到数据 " );
+                System.out.println(name + "第" + i + "次提取,提取数量+" + buffer.size());
+                if (buffer.size() != 2) {
+                    System.out.println(name + " 没有获取到数据 ");
                     continue;
                 }
-                for (int j = 1; j < 3 ; j++) {
-                    System.out.println(name+" : " + buffer.get(0));
+                for (int j = 1; j < 3; j++) {
+                    System.out.println(name + " : " + buffer.get(0));
                     buffer.remove(0);
                 }
             }
@@ -94,17 +90,15 @@ public class ExchangeTest {
 
         Exchanger<List<String>> exchanger = new Exchanger<List<String>>();
 
-        Thread producerThread = new Thread(new Producer(buffer1,exchanger));
-        Thread consumerThread = new Thread(new Consumer(buffer2,exchanger));
+        Thread producerThread = new Thread(new Producer(buffer1, exchanger));
+        Thread consumerThread = new Thread(new Consumer(buffer2, exchanger));
 //        Thread consumerThread2 = new Thread(new Consumer(buffer2,exchanger));
 
 
         producerThread.start();
         consumerThread.setName("消费者一号");
-        Thread.sleep(5000L);
         consumerThread.start();
     }
-
 
 
 }
