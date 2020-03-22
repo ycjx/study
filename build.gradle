@@ -37,14 +37,13 @@ repositories {
 
 dependencies {
      compile('org.springframework.boot:spring-boot-starter')
+     compile('org.springframework.boot:spring-boot-starter-web')
      compileOnly('org.projectlombok:lombok')
      compile("com.alibaba:fastjson:1.2.47")
      testCompile('org.springframework.boot:spring-boot-starter-test')
-     // https://mvnrepository.com/artifact/io.netty/netty-all
      compile group: 'io.netty', name: 'netty-all', version: '4.1.30.Final'
      compile group: 'com.google.guava', name: 'guava', version: '28.1-jre'
-     compile group: 'org.springframework.cloud', name: 'spring-cloud-commons', version: '2.2.1.RELEASE'
-
+     compile group: 'org.springframework.boot', name: 'spring-boot-starter-amqp', version: '2.2.1.RELEASE'
 
 }
 

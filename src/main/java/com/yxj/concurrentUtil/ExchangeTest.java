@@ -39,6 +39,7 @@ public class ExchangeTest {
                     //生产者将buff填充满数据，与exchanger中的buffer交换
                     //在消费者获取数据前，生产者线程将被挂起
                     buffer = exchanger.exchange(buffer);
+                    System.out.println("生产者获取消费者的数据--------"+buffer.get(0));
                     buffer.clear();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -65,6 +66,7 @@ public class ExchangeTest {
             for (int i = 1; i < 5; i++) {
                 //调用exchange()与消费者进行数据交换
                 try {
+                    buffer.add("消费者的数据");
                     //消费者获取生产者存的buffer
                     buffer = exchanger.exchange(buffer);
                 } catch (InterruptedException e) {
