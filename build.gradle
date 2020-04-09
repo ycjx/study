@@ -44,6 +44,10 @@ dependencies {
      compile group: 'io.netty', name: 'netty-all', version: '4.1.30.Final'
      compile group: 'com.google.guava', name: 'guava', version: '28.1-jre'
      compile group: 'org.springframework.boot', name: 'spring-boot-starter-amqp', version: '2.2.1.RELEASE'
+     
+     compile 'com.alibaba:druid-spring-boot-starter:1.1.20'
+     runtime('mysql:mysql-connector-java')
+     compile('org.mybatis.spring.boot:mybatis-spring-boot-starter')
 
 }
 

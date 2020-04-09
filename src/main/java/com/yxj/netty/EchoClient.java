@@ -10,6 +10,7 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.FixedLengthFrameDecoder;
 import io.netty.handler.codec.LineBasedFrameDecoder;
 
 import java.net.InetSocketAddress;
@@ -48,7 +49,8 @@ public class EchoClient {
                     .handler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) {
-                            ch.pipeline().addLast(new LineBasedFrameDecoder(1000));
+                            ch.pipeline().addLast(new LineBasedFrameDecoder(7))
+                                    .addLast(new EchoClientHandler());
                         }
                     });
             ChannelFuture f = b.connect().sync();

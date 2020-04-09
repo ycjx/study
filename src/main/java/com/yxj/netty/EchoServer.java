@@ -7,6 +7,7 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.FixedLengthFrameDecoder;
 import io.netty.handler.codec.LineBasedFrameDecoder;
 
 import java.net.InetSocketAddress;
@@ -46,7 +47,7 @@ public class EchoServer {
                         @Override
                         protected void initChannel(SocketChannel ch) {
                             ch.pipeline()
-                                    .addLast(new LineBasedFrameDecoder(1000))
+                                    .addLast(new FixedLengthFrameDecoder(64))
                                     .addLast(serverOutHandler)  //TODO 为什么出站的handle要在入站handler前面
                                     .addLast(serverInHandler);
                         }
