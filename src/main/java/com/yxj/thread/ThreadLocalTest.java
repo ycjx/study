@@ -1,5 +1,7 @@
 package com.yxj.thread;
 
+import java.lang.ref.WeakReference;
+
 /**
  * @author:yuxj
  * @descriptio
@@ -7,21 +9,33 @@ package com.yxj.thread;
  */
 public class ThreadLocalTest {
 
-    private static ThreadLocal threadLocal = new ThreadLocal();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
-        threadLocal.set("main");
+        ThreadLocal threadLocal = new ThreadLocal();
+
+
+        Object object = new Object();
+
+        threadLocal.set(object);
+        threadLocal = null;
+        object = null;
+        threadLocal.remove();
+        System.gc();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         System.out.println(threadLocal.get());
-        Thread a = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                threadLocal.set("123");
-                System.out.println(threadLocal.get());
-            }
-        });
-        a.start();
+        WeakReference<ThreadLocalTest> threadLocalTestWeakReference = new WeakReference<ThreadLocalTest>(new ThreadLocalTest());
+//        threadLocalTestWeakReference.get();
+        System.gc();
+        Thread.sleep(5000);
 
+        if(threadLocalTestWeakReference.get() == null){
+            System.out.println("被回收喽");
+        }
 
 
     }

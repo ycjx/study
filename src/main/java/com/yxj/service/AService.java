@@ -1,6 +1,7 @@
 package com.yxj.service;
 
 import com.yxj.KogMawEvent;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ import java.util.UUID;
  * @create:2020-04-06 17:35
  */
 @Service
-public class AService {
+public class AService  implements FatherService{
 
     @Autowired
     private BService bService;
@@ -22,13 +23,27 @@ public class AService {
     @Autowired
     private ApplicationContext applicationContext;
 
+    @Autowired
+    private AService aService;
+
 
     @Transactional(rollbackFor = Exception.class)
+    @Override
     public void test() {
-        applicationContext.publishEvent(new KogMawEvent(UUID.randomUUID().toString()
+        applicationContext.publishEvent(new KogMawEvent("test"
                 , Thread.currentThread().getName()));
-        applicationContext.publishEvent(new KogMawEvent(UUID.randomUUID().toString()
+        System.out.println(1);
+        aService.test2();
+    }
+
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void test2() {
+        applicationContext.publishEvent(new KogMawEvent("test2"
                 , Thread.currentThread().getName()));
         System.out.println(1);
     }
+
+
 }

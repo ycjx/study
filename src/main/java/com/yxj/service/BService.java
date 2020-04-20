@@ -13,4 +13,8 @@ public class BService {
 
     @Autowired
     private CService cService;
+
+    public void test() {
+        System.out.println("bService");
+    }
 }

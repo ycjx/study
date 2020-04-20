@@ -11,6 +11,5 @@ import org.springframework.stereotype.Service;
 @Service
 public class CService {
 
-    @Autowired
-    private AService aService;
+
 }
