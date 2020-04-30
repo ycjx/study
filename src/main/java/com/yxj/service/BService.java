@@ -15,6 +15,7 @@ public class BService {
     private CService cService;
 
     public void test() {
+        cService.test();
         System.out.println("bService");
     }
 }

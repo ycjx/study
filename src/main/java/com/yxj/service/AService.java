@@ -15,7 +15,7 @@ import java.util.UUID;
  * @create:2020-04-06 17:35
  */
 @Service
-public class AService  implements FatherService{
+public class AService {
 
     @Autowired
     private BService bService;
@@ -28,7 +28,6 @@ public class AService  implements FatherService{
 
 
     @Transactional(rollbackFor = Exception.class)
-    @Override
     public void test() {
         applicationContext.publishEvent(new KogMawEvent("test"
                 , Thread.currentThread().getName()));
@@ -38,7 +37,6 @@ public class AService  implements FatherService{
 
 
     @Transactional(rollbackFor = Exception.class)
-    @Override
     public void test2() {
         applicationContext.publishEvent(new KogMawEvent("test2"
                 , Thread.currentThread().getName()));

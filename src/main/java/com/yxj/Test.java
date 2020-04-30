@@ -1,14 +1,45 @@
 package com.yxj;
 
 
+import org.springframework.util.CollectionUtils;
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class Test {
 
 
     public static void main(String[] args) throws Exception {
-        getDayByIndex(1587119056000L,100);
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        list.add(5);
+        list.add(6);
+        list.add(7);
+        list.add(8);
+
+        int i = 0;
+        int size = list.size();
+        while (i < size) {
+            int j = i;
+            i = i+4>size?size:i+4;
+            List<Integer> list1 = list.subList(j, i);
+            System.out.println(list1);
+        }
+//
+//        int i =0;
+//        List<Integer> child = new ArrayList<>();
+//        child = list.subList(i,i+=5);
+//        do {
+//            System.out.println(child.toString());
+//            child = list.subList(i,i+=5);
+//        }  while (CollectionUtils.isEmpty(child));
+
+
     }
 
 

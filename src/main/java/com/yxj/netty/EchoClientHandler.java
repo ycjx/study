@@ -32,7 +32,7 @@ public class EchoClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
         ByteBuf bodyBuffer = Unpooled.buffer(1024);
         bodyBuffer.writeBytes("body".getBytes());
 
-
+        System.out.println("channelActive");
         CompositeByteBuf compositeByteBuf = Unpooled.compositeBuffer();
         compositeByteBuf.addComponents(true,heapBuffer,bodyBuffer);
          ctx.writeAndFlush(compositeByteBuf);

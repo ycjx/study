@@ -1,5 +1,6 @@
 package com.yxj.aspect;
 
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -23,6 +24,12 @@ public class MuxcAspect {
     @Before("pointCut()")
     public void before() {
         System.out.println("aopBefore");
+    }
+
+
+    @After("pointCut()")
+    public void after(){
+        System.out.println("aopAfter");
     }
 
 }
