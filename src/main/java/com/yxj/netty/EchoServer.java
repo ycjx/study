@@ -36,7 +36,7 @@ public class EchoServer {
     public void start() throws Exception {
         final EchoServerInHandler serverInHandler = new EchoServerInHandler();
         final EchoServerOutHandler serverOutHandler = new EchoServerOutHandler();
-        EventLoopGroup group = new NioEventLoopGroup();
+        EventLoopGroup group = new NioEventLoopGroup(1);
         EventLoopGroup group2 = new NioEventLoopGroup();
         try {
             ServerBootstrap b = new ServerBootstrap();
@@ -47,7 +47,7 @@ public class EchoServer {
                         @Override
                         protected void initChannel(SocketChannel ch) {
                             ch.pipeline()
-                                    .addLast(new FixedLengthFrameDecoder(64))
+                                    .addLast(new ReciveAllDecoder())
                                     .addLast(serverOutHandler)  //TODO 为什么出站的handle要在入站handler前面
                                     .addLast(serverInHandler);
                         }

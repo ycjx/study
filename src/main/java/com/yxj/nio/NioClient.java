@@ -44,9 +44,9 @@ public class NioClient {
             //返回此选择器的已选择键集。
             selectionKeys = selector.selectedKeys();
             num++;
-            if(selectionKeys.size() == 0){
-                System.out.println(num);
-            }
+//            if(selectionKeys.size() == 0){
+//                System.out.println(num);
+//            }
             //System.out.println(selectionKeys.size());
             iterator = selectionKeys.iterator();
             while (iterator.hasNext()) {
@@ -64,7 +64,7 @@ public class NioClient {
                         sendbuffer.flip();
                         client.write(sendbuffer);
                     }
-//                    client.register(selector, SelectionKey.OP_READ);
+                    client.register(selector, SelectionKey.OP_READ);
                 } else if (selectionKey.isReadable()) {
                     client = (SocketChannel) selectionKey.channel();
                     //将缓冲区清空以备下次读取
@@ -86,7 +86,7 @@ public class NioClient {
                     sendbuffer.flip();
                     client.write(sendbuffer);
                     System.out.println("客户端向服务器端发送数据--："+sendText);
-//                    client.register(selector, SelectionKey.OP_READ);
+                    client.register(selector, SelectionKey.OP_READ);
                 }
             }
             selectionKeys.clear();

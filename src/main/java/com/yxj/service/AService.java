@@ -27,16 +27,16 @@ public class AService {
     private AService aService;
 
 
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional
     public void test() {
         applicationContext.publishEvent(new KogMawEvent("test"
                 , Thread.currentThread().getName()));
         System.out.println(1);
-        aService.test2();
+        test2();
     }
 
 
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional
     public void test2() {
         applicationContext.publishEvent(new KogMawEvent("test2"
                 , Thread.currentThread().getName()));

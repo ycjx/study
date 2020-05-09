@@ -40,7 +40,7 @@ public class EchoClient {
     }
 
 
-    public void start() throws Exception {
+    public void start(String s) throws Exception {
         EventLoopGroup group = new NioEventLoopGroup();
         try {
             b.group(group)
@@ -54,24 +54,25 @@ public class EchoClient {
                         }
                     });
             ChannelFuture f = b.connect().sync();
-            f.addListener(lis -> {
-                if (lis.isSuccess()) {
-                    Channel channel = ((ChannelFuture) lis).channel();
-                    ByteBuf heapBuffer2 = Unpooled.buffer(1024);
-                    heapBuffer2.writeBytes("qqqqqqq\n cccccccccccc".getBytes());
-                    f.channel().writeAndFlush(heapBuffer2);
-                }
-            });
+//            f.addListener(lis -> {
+//                if (lis.isSuccess()) {
+//                    Channel channel = ((ChannelFuture) lis).channel();
+//                    ByteBuf heapBuffer2 = Unpooled.buffer(1024);
+//                    heapBuffer2.writeBytes("qqqqqqq\n cccccccccccc".getBytes());
+//                    f.channel().writeAndFlush(heapBuffer2);
+//                }
+//            });
             ByteBuf heapBuffer = Unpooled.buffer(1024);
-            heapBuffer.writeBytes("Hello Netty Server, I am a\n common cli\nent".getBytes());
+            System.out.println(s);
+            heapBuffer.writeBytes("1232322".getBytes());
             f.channel().writeAndFlush(heapBuffer);
 //            Thread.sleep(1000);
-
-            new Thread(() -> {
-                ByteBuf heapBuffer2 = Unpooled.buffer(1024);
-                heapBuffer2.writeBytes("12313131313\n common client".getBytes());
-                f.channel().writeAndFlush(heapBuffer2);
-            }).start();
+//
+//            new Thread(() -> {
+//                ByteBuf heapBuffer2 = Unpooled.buffer(1024);
+//                heapBuffer2.writeBytes("12313131313\n common client".getBytes());
+//                f.channel().writeAndFlush(heapBuffer2);
+//            }).start();
 
             f.channel().closeFuture().sync();
         } catch (Exception ex) {
@@ -86,22 +87,35 @@ public class EchoClient {
             System.out.println("Usage: host+port");
         }
 
-        String host = "127.0.0.1";
-        int port = 8002;
-        EchoClient echoClient = new EchoClient(host, port);
+        for (int i = 0; i < 17; i++) {
+            int j = i;
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    String host = "127.0.0.1";
+                    int port = 8002;
+                    EchoClient echoClient = new EchoClient(host, port);
 
-        echoClient.start();
+                    String s = "我是第" + j + "个client";
+                    try {
+                        echoClient.start(s);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
 
-        Thread.sleep(2000);
+
+//        ChannelFuture f2 = echoClient.getB().connect().sync();
+//
+//        ByteBuf heapBuffer = Unpooled.buffer(1024);
+//        heapBuffer.writeBytes("这是第二个".getBytes());
+//        System.out.println("这是第二个");
+//        f2.channel().writeAndFlush(heapBuffer);
+//        f2.channel().closeFuture().sync();
+        }
+        Thread.sleep(100000L);
 
 
-        ChannelFuture f2 = echoClient.getB().connect().sync();
-
-        ByteBuf heapBuffer = Unpooled.buffer(1024);
-        heapBuffer.writeBytes("这是第二个".getBytes());
-        System.out.println("这是第二个");
-        f2.channel().writeAndFlush(heapBuffer);
-        f2.channel().closeFuture().sync();
     }
-
 }

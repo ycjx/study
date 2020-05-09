@@ -39,8 +39,11 @@ public class EchoClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
          super.channelActive(ctx);
     }
 
-
-
+    @Override
+    public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("注册完毕");
+        super.channelRegistered(ctx);
+    }
 
     /**
      * 处理接收到的消息

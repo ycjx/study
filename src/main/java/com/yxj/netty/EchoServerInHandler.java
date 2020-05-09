@@ -40,6 +40,15 @@ public class EchoServerInHandler extends ChannelInboundHandlerAdapter {
 //        connectFuture  = bootstrap.connect(new InetSocketAddress("www.baidu.com",80));
     }
 
+    @Override
+    public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
+        System.out.println(ctx.channel());
+
+        System.out.println("注册完毕");
+        super.channelRegistered(ctx);
+    }
+
+
     /**
      * 处理接收到的消息
      *
